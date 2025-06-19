@@ -1,0 +1,20 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+<script>
+  function checkLoginAndGoToWrite(userId) {
+    if (!userId) {
+      alert("로그인 후 게시판을 이용해주세요.");
+      location.href = "UserController?action=loginForm";
+    } else {
+      location.href = "BoardController?action=writeForm";
+    }
+  }
+</script>
+
+<div class="menu">
+  <p> 
+    [<a href="<%= request.getContextPath() %>/BoardController?action=list">게시판 목록 List</a>]
+    [<a href="<%= request.getContextPath() %>/BoardController?action=allList">게시글 목록 List</a>] 
+    [<a href="javascript:void(0);" onclick="checkLoginAndGoToWrite('<%= session.getAttribute("userId") != null ? session.getAttribute("userId") : "" %>')">게시글 등록</a>]
+  </p>
+</div>

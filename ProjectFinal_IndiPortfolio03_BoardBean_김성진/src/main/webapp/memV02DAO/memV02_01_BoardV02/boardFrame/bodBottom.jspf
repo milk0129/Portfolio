@@ -1,0 +1,6 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<div class="footer-table">
+    <div class="footer-cell">2025.05.13</div>
+    <div class="footer-cell copyright">ⓒCopyright 김성진</div>
+    <div class="footer-cell">관리자</div>
+</div>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>webPro01</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+  </welcome-file-list>
+
+  <!-- <error-page>
+    <error-code>404</error-code>
+    <location>/memV01/memV08ErrorPage/memHtml/404code.jsp</location>
+  </error-page>-->
+  
+<!-- <error-page>
+    <error-code>500</error-code>
+    <location>/memV01/memV08ErrorPage/memHtml/500code.jsp</location>
+  </error-page>
+ -->
+
+<!--insert-->
+<servlet>
+	<servlet-name>MemInsServlet</servlet-name>
+	<servlet-class>memServletV01.MemInsServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>MemInsServlet</servlet-name>
+	<url-pattern>/MemInsServlet.do</url-pattern>
+</servlet-mapping>
+<!--delete-->
+<servlet>
+	<servlet-name>MemDelServlet</servlet-name>
+	<servlet-class>memServletV01.MemDelServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>MemDelServlet</servlet-name>
+	<url-pattern>/MemDelServlet.do</url-pattern>
+</servlet-mapping>
+<!--update-->
+<servlet>
+	<servlet-name>MemUpdServlet</servlet-name>
+	<servlet-class>memServletV01.MemUpdServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>MemUpdServlet</servlet-name>
+	<url-pattern>/MemUpdServlet.do</url-pattern>
+</servlet-mapping>
+<!--login-->
+<servlet>
+	<servlet-name>MemLogServlet</servlet-name>
+	<servlet-class>memServletV01.MemLogServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>MemLogServlet</servlet-name>
+	<url-pattern>/MemLogServlet.do</url-pattern>
+</servlet-mapping>
+
+<!--select-->
+<servlet>
+	<servlet-name>MemSelServlet</servlet-name>
+	<servlet-class>memServletV01.MemSelServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>MemSelServlet</servlet-name>
+	<url-pattern>/MemSelServlet.do</url-pattern>
+</servlet-mapping>
+
+<mime-mapping>
+  <extension>woff2</extension>
+  <mime-type>font/woff2</mime-type>
+</mime-mapping>
+
+</web-app>

@@ -1,0 +1,134 @@
+@font-face {
+  font-family: 'Pretendard';
+  src: url('../font/Pretendard-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+/* 전체 페이지 스타일 */
+body {
+    font-family: 'Pretendard', sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    flex-direction: column;
+}
+
+/* 헤더 스타일 */
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* 메인 컨텐츠 영역 */
+main {
+    background: white;
+    width: 350px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* 섹션 스타일 */
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 입력 폼 스타일 */
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* 라벨 스타일 */
+label {
+    align-self: flex-start;
+    margin-left: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* 입력 필드 스타일 */
+input {
+    width: 90%;
+    padding: 10px;
+    margin: 5px 0 15px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* 설명 텍스트 */
+.info-text {
+    font-size: 12px;
+    color: gray;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    align-self: flex-start;
+    margin-left: 10px;
+}
+
+/* 버튼 스타일 */
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #038b00;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #026f00;
+}
+
+/* 네비게이션 스타일 */
+nav {
+    margin-top: 15px;
+}
+
+/* 푸터 스타일 */
+footer {
+    margin-top: 20px;
+    font-size: 14px;
+    color: gray;
+    text-align: center;
+}
+
+/* 링크 스타일 */
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/*top*/
+.menu {
+  text-align: right;
+  margin-bottom: 15px;
+  color: #038b00;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a {
+	text-decoration: none;
+	color: #038b00;
+}
+
+.pFooter {
+    font-size: 14px;
+    color: gray;
+    text-align: center;
+}

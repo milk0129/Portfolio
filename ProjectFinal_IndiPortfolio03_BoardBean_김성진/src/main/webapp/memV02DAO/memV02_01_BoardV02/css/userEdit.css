@@ -1,0 +1,107 @@
+@font-face {
+  font-family: 'Pretendard';
+  src: url('../font/Pretendard-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  font-family: 'Pretendard', sans-serif;
+  background-color: #f6f6f6;
+  margin: 0;
+  padding: 0;
+}
+
+h2 {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 28px;
+}
+
+.form-wrapper {
+  width: 600px;
+  margin: 40px auto;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 30px 40px;
+}
+
+.form-wrapper table {
+  width: 100%;
+}
+
+.form-wrapper td {
+  padding: 10px 0;
+}
+
+.form-wrapper input[type="text"],
+.form-wrapper input[type="password"],
+.form-wrapper input[type="email"],
+.form-wrapper input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.profile-img-preview {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.profile-img-preview img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+}
+
+.form-wrapper .btn-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.form-wrapper input[type="submit"],
+.form-wrapper input[type="button"] {
+  width: 48%;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+input[type="submit"] {
+  background-color: #038b00;;
+  color: white;
+}
+
+input[type="submit"]:hover {
+  background-color: #026f00;
+}
+
+input[type="button"] {
+  background-color: #ccc;
+  color: #333;
+}
+
+input[type="button"]:hover {
+  background-color: #bbb;  
+  color: black;
+}
+
+#msg {
+  font-size: 13px;
+  color: red;
+  margin-top: 4px;
+}
+
+.pFooter {
+    font-size: 14px;
+    color: gray;
+    text-align: center;
+}

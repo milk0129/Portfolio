@@ -1,0 +1,299 @@
+@font-face {
+  font-family: 'Pretendard';
+  src: url('../font/Pretendard-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  width: 1000px;
+  font-family: 'Pretendard', sans-serif;
+  margin: auto;
+  text-align: center;
+}
+
+/* 전체 wrapper를 flex로 설정 */
+.page-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 40px;
+  gap: 40px;
+  width: 100%;
+}
+
+/* 로그인 wrapper: 위치 고정 대신 레이아웃 일부로 포함 */
+.login-box-wrapper {
+  width: 300px;
+}
+
+/* 게시판 wrapper: 기존 800px 그대로 사용 가능 */
+.board-wrapper {
+	 width: 800px;
+	 padding: 15px;
+	 background-color: white;
+	 border: 2px solid gray;
+	 box-shadow: 2px 2px 5px #aaa;
+	 border-radius: 5px;
+}
+
+
+h2 {
+	margin-top:40px;
+}
+
+h2 a{
+  cursor: pointer;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #004500;
+}
+/* 로그인 폼 박스 */
+.login-box {
+  width: 300px;
+  height: auto;
+  border: 2px solid gray;
+  padding: 15px;
+  background-color: white;
+  box-shadow: 2px 2px 5px #aaa;
+  border-radius: 5px;
+}
+
+.profile-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.profile-img img {
+  width: 60px;
+  height: 60px;
+  border: 2px solid #000;
+  border-radius: 5px;
+  margin-right: 15px;
+}
+
+.profile-info .profile-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.profile-info .profile-id {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.profile-links {
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+/* 로그인 제목 */
+.login-title {
+  margin: 0 0 10px 0;
+  font-size: 15px;
+  text-align: left;
+}
+
+/* 입력 필드 공통 */
+.login-input {
+  width: 93%;
+  padding: 8px;
+  margin-bottom: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* 로그인 버튼 */
+.login-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #038b00;
+  
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+/* 로그아웃 버튼 */
+.login-button:hover {
+  background-color: #026f00;
+}
+
+.logout-button {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #038b00;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background-color: #026f00;
+}
+
+
+/* 링크 묶음 */
+.login-links {
+  text-align: center;
+  font-size: 13px;
+}
+
+.container {
+  width: 800px;
+  padding: 0px;
+  font-size: 14px;
+}
+
+div.table-container {
+ margin-top: 25px;
+ cursor:pointer;
+}
+
+/*top*/
+.menu {
+  text-align: right;
+  margin-bottom: 15px;
+  color: #038b00;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a {
+	text-decoration: none;
+	color: #038b00;
+	font-size: 18px;
+}
+/*bottom*/
+.footer-table {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 156px;
+    width: 100%;
+    text-align: center;
+    padding: 15px 0px;
+}
+
+/* 셀 스타일 */
+.footer-cell {
+	padding: 5px 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background-color: #004500;
+    border: 2px solid #1b5e20;
+    border-radius: 5px;
+}
+
+/* Copyright 셀만 더 넓게 */
+.footer-cell.copyright {
+    padding: 5px 48px;
+}
+
+table {
+  width: 800px;
+  border-spacing: 0px;
+}
+
+th {
+  background-color: #038b00;
+  color: white;
+  padding: 10px;
+}
+
+td {
+  padding: 10px;
+  text-align: center;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.pagination a, .pagination span  {
+  padding: 5px 10px;
+  background-color: #ddd;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #000;
+}
+
+.pagination a:hover {
+  background-color: #bbb;
+}
+
+.pagination a.active {
+  background-color: #038b00;
+  color: white;
+  font-weight: bold;
+}
+
+/*검색창*/
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+
+.search-form select,
+.search-form input[type="text"] {
+  height: 50px;
+  border: 2px solid #3b8700;
+  font-size: 16px;
+  padding: 0 10px;
+}
+
+.search-form select {
+  width: 140px;
+  height: 55px;
+  color: #000;
+  cursor: pointer;
+}
+
+.search-form input[type="text"] {
+  flex: 1;
+}
+
+.search-form button {
+  width: 80px;
+  height: 55px;
+  background-color: #4e9e22;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.search-form button:hover {
+  background-color: #367314;
+}
+
+/*myBoard*/
+.myTable {
+	width: 1000px;
+	border: 2px solid #3b8700;
+}
+.updBtn {
+  color: #038b00;
+  background-color: unset;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}

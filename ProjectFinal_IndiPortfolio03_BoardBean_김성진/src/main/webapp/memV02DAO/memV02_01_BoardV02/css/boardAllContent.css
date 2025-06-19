@@ -1,0 +1,125 @@
+@font-face {
+  font-family: 'Pretendard';
+  src: url('../font/Pretendard-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+	width:1000px;
+    font-family: 'Pretendard', sans-serif;
+    background-color: #f9f9f9;
+    color: #004500;
+    margin: auto;
+}
+
+h2 {
+    text-align: center;
+	margin-top:40px;
+}
+h2 a{
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #004500;
+}
+
+/*top*/
+.menu {
+  text-align: right;
+  margin-bottom: 15px;
+  color: #038b00;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a {
+	text-decoration: none;
+	color: #038b00;
+}
+/*bottom*/
+.footer-table {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 204px;
+    width: 100%;
+    text-align: center;
+    padding: 15px 0px;
+}
+
+/* 셀 스타일 */
+.footer-cell {
+	padding: 5px 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background-color: #004500;
+    border: 2px solid #1b5e20;
+    border-radius: 5px;
+}
+
+/* Copyright 셀만 더 넓게 */
+.footer-cell.copyright {
+    padding: 5px 150px;
+}
+
+
+.post {
+    background-color: white;
+    border: 2px solid #038b00;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.post-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #026f00;
+}
+
+.post-meta {
+    font-size: 14px;
+    color: #777;
+}
+
+.post-content {
+    margin-top: 15px;
+    line-height: 1.6;
+    white-space: pre-line;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.pagination a, .pagination span  {
+  padding: 5px 10px;
+  background-color: #ddd;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #000;
+}
+
+.pagination a:hover {
+  background-color: #bbb;
+}
+
+.pagination .now{
+  background-color: #038b00;
+  color: white;
+  font-weight: bold;
+}
