@@ -43,7 +43,7 @@
                 </c:forEach>
               </c:when>
               <c:otherwise>
-                <tr><td colspan="6">등록된 게시글이 없습니다.</td></tr>
+                <tr><td colspan="6">검색된 게시글이 없습니다.</td></tr>
               </c:otherwise>
             </c:choose>
           </tbody>
@@ -60,7 +60,7 @@
           <c:set var="userId" value="${sessionScope.loginUser.userId}" />
           <c:set var="userName" value="${sessionScope.loginUser.userName}" />
           <c:set var="profileImg" value="${sessionScope.loginUser.profileImg}" />
-          <c:set var="imgPath" value="${empty profileImg ? (pageContext.request.contextPath += '/profiles/default.png') : (pageContext.request.contextPath += '/profiles/' += profileImg)}" />
+          <c:set var="imgPath" value="${empty profileImg ? pageContext.request.contextPath += '/profiles/default.png' : pageContext.request.contextPath += '/profiles/' += profileImg}" />
 
           <div class="profile-container">
             <div class="profile-img">
@@ -99,31 +99,33 @@
   </div>
 </div>
 
-<!-- 페이징 영역 -->
+<!-- 페이징 -->
 <c:set var="searchField" value="${searchField}" />
 <c:set var="searchKeyword" value="${searchKeyword}" />
 <c:set var="nowBlock" value="${paging.nowBlock}" />
 <c:set var="pagePerBlock" value="${paging.pagePerBlock}" />
 
-<div class="pagination">
-  <c:if test="${nowBlock > 0}">
-    <a href="BoardController?action=list&nowBlock=${nowBlock - 1}&nowPage=${(nowBlock - 1) * pagePerBlock}&searchField=${searchField}&search=${searchKeyword}">&laquo;</a>
-  </c:if>
+<c:if test="${paging.endPage >= 0}">
+  <div class="pagination">
+    <c:if test="${nowBlock > 0}">
+      <a href="BoardController?action=list&nowBlock=${nowBlock - 1}&nowPage=${(nowBlock - 1) * pagePerBlock}&searchField=${searchField}&search=${searchKeyword}">&laquo;</a>
+    </c:if>
 
-  <c:forEach var="i" begin="${paging.startPage}" end="${paging.endPage}">
-    <c:set var="isActive" value="${paging.nowPage == i}" />
-    <a href="BoardController?action=list&nowBlock=${nowBlock}&nowPage=${i}&searchField=${searchField}&search=${searchKeyword}"
-       class="${isActive ? 'active' : ''}">
-       ${i + 1}
-    </a>
-  </c:forEach>
+    <c:forEach var="i" begin="${paging.startPage}" end="${paging.endPage}">
+      <c:set var="isActive" value="${paging.nowPage == i}" />
+      <a href="BoardController?action=list&nowBlock=${nowBlock}&nowPage=${i}&searchField=${searchField}&search=${searchKeyword}"
+         class="${isActive ? 'active' : ''}">
+         ${i + 1}
+      </a>
+    </c:forEach>
 
-  <c:if test="${nowBlock + 1 < paging.totalBlock}">
-    <a href="BoardController?action=list&nowBlock=${nowBlock + 1}&nowPage=${(nowBlock + 1) * pagePerBlock}&searchField=${searchField}&search=${searchKeyword}">&raquo;</a>
-  </c:if>
-</div>
+    <c:if test="${nowBlock + 1 < paging.totalBlock}">
+      <a href="BoardController?action=list&nowBlock=${nowBlock + 1}&nowPage=${(nowBlock + 1) * pagePerBlock}&searchField=${searchField}&search=${searchKeyword}">&raquo;</a>
+    </c:if>
+  </div>
+</c:if>
 
-<!-- 검색창 UI -->
+<!-- 검색창 -->
 <form action="BoardController" method="get" class="search-form">
   <input type="hidden" name="action" value="list">
 
@@ -134,9 +136,7 @@
     <option value="writer" ${searchField eq 'writer' ? 'selected' : ''}>작성자</option>
   </select>
 
-  <input type="text" name="search" placeholder="검색어 입력"
-         value="${param.search != null ? param.search : ''}">
-
+  <input type="text" name="search" placeholder="검색어 입력" value="${param.search != null ? param.search : ''}">
   <button type="submit">검색</button>
 </form>
 
