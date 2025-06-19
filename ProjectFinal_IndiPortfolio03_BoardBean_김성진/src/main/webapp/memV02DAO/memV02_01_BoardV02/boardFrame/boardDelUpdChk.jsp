@@ -1,38 +1,35 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="boardV02.BoardV02DTO" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <title>비밀번호 확인</title>
-  <link rel="stylesheet" href="<%= request.getContextPath() %>/memV02DAO/memV02_01_BoardV02/css/boardChkFrame.css">
-  <script src="<%= request.getContextPath() %>/memV02DAO/memV02_01_BoardV02/jas/jquery-3.7.1.js"></script>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/memV02DAO/memV02_01_BoardV02/css/boardChkFrame.css">
+  <script src="${pageContext.request.contextPath}/memV02DAO/memV02_01_BoardV02/jas/jquery-3.7.1.js"></script>
 </head>
 <body onload="mInit()">
 
-<%
-  String category = (String) request.getAttribute("category");
-  boolean isUserDelete = "userDelete".equals(category);
-%>
+<c:set var="category" value="${requestScope.category}" />
+<c:set var="isUserDelete" value="${category eq 'userDelete'}" />
 
 <div id="wrapper">
   <h2>** 정보 확인 **</h2>
   <%@ include file="bodTop.jspf" %>
 
-  <% if (!isUserDelete) { // 게시글 처리용 %>
+  <c:if test="${not isUserDelete}">
     <form name="frm01" id="frm01" method="post" action="BoardController">
-      <input type="hidden" name="action" value="<%= "del".equals(category) ? "delete" : "editForm" %>">
-      <input type="hidden" name="bod_no" value="<%= ((BoardV02DTO)request.getAttribute("dto")).getBod_no() %>">
-      <input type="hidden" id="realPwd" value="<%= ((BoardV02DTO)request.getAttribute("dto")).getBod_pwd() %>">
+      <input type="hidden" name="action" value="${category eq 'del' ? 'delete' : 'editForm'}">
+      <input type="hidden" name="bod_no" value="${dto.bod_no}">
+      <input type="hidden" id="realPwd" value="${dto.bod_pwd}">
 
       <table id="chkTable">
         <tr>
           <td class="chkTd">** 글 작성 시 입력한 비밀번호를 입력해 주세요 **</td>
         </tr>
         <tr>
-          <td>
-            <input type="password" id="passwd" name="bod_pwd" placeholder="비밀번호를 입력하세요.">
-          </td>
+          <td><input type="password" id="passwd" name="bod_pwd" placeholder="비밀번호를 입력하세요."></td>
         </tr>
         <tr>
           <td>
@@ -47,10 +44,12 @@
         </tr>
       </table>
     </form>
-  <% } else { // 회원 탈퇴용 %>
+  </c:if>
+
+  <c:if test="${isUserDelete}">
     <form method="post" action="UserController" id="userDeleteForm">
       <input type="hidden" name="action" value="deleteUser">
-      <input type="hidden" name="userId" value="<%= request.getAttribute("userId") %>">
+      <input type="hidden" name="userId" value="${userId}">
       <table id="chkTable">
         <tr>
           <td class="chkTd">** 회원 비밀번호를 입력해 주세요 **</td>
@@ -66,13 +65,12 @@
         </tr>
       </table>
     </form>
-  <% } %>
+  </c:if>
 
   <%@ include file="bodBottom.jspf" %>
 </div>
 
-<%-- 게시글용 스크립트만 포함 --%>
-<% if (!isUserDelete) { %>
+<c:if test="${not isUserDelete}">
 <script>
 let pwdMatch = false;
 
@@ -103,7 +101,7 @@ $("#resultInput").on("click", function () {
   }
 });
 </script>
-<% } %>
+</c:if>
 
 </body>
 </html>

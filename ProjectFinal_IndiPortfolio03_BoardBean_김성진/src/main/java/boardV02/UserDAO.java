@@ -109,7 +109,7 @@ public class UserDAO {
                     dto.setUserId(rs.getString("USER_ID"));
                     dto.setUserName(rs.getString("USER_NAME"));
                     dto.setUserEmail(rs.getString("USER_EMAIL"));
-                    dto.setProfileImg(rs.getString("PROFILE_IMG")); // 추가
+                    dto.setProfileImg(rs.getString("PROFILE_IMG")); 
                     return dto;
                 }
             }

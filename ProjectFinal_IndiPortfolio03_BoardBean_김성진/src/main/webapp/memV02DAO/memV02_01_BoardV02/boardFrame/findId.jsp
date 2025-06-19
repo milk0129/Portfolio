@@ -1,21 +1,24 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <title>아이디 찾기</title>
-  <link rel="stylesheet" href="<%= request.getContextPath() %>/memV02DAO/memV02_01_BoardV02/css/loginstyle.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/memV02DAO/memV02_01_BoardV02/css/loginstyle.css">
 </head>
 <body>
+
 <%@ include file="bodTop.jspf"%>
+
 <main>
   <header>
     <h2>아이디 찾기</h2>
   </header>
 
   <section>
-    <form method="post" action="<%= request.getContextPath() %>/UserController">
+    <form method="post" action="${pageContext.request.contextPath}/UserController">
       <input type="hidden" name="action" value="findId">
 
       <label for="userName">이름</label>
@@ -27,24 +30,22 @@
       <button type="submit">아이디 찾기</button>
     </form>
 
-    <%
-      String name = (String) request.getAttribute("userName");
-      String email = (String) request.getAttribute("userEmail");
-      String foundId = (String) request.getAttribute("foundId");
-      if (name != null && email != null) {
-    %>
+    <c:if test="${not empty userName and not empty userEmail}">
       <div class="info-text">
-        <% if (foundId != null) { %>
-          회원님의 아이디는 <strong><%= foundId %></strong> 입니다.
-        <% } else { %>
-          <span style="color: red;">일치하는 회원 정보가 없습니다.</span>
-        <% } %>
+        <c:choose>
+          <c:when test="${not empty foundId}">
+            회원님의 아이디는 <strong>${foundId}</strong> 입니다.
+          </c:when>
+          <c:otherwise>
+            <span style="color: red;">일치하는 회원 정보가 없습니다.</span>
+          </c:otherwise>
+        </c:choose>
       </div>
-    <% } %>
+    </c:if>
 
     <nav>
-      <a href="<%= request.getContextPath() %>/UserController?action=loginForm">로그인</a> |
-      <a href="<%= request.getContextPath() %>/UserController?action=signUpForm">회원가입</a>
+      <a href="${pageContext.request.contextPath}/UserController?action=loginForm">로그인</a> |
+      <a href="${pageContext.request.contextPath}/UserController?action=signUpForm">회원가입</a>
     </nav>
   </section>
 </main>

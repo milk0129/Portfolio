@@ -1,18 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <title>게시글 작성</title>
-  <link rel="stylesheet" href="<%= request.getContextPath() %>/memV02DAO/memV02_01_BoardV02/css/boardInsUpdFrame.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/memV02DAO/memV02_01_BoardV02/css/boardInsUpdFrame.css">
 </head>
 <body>
 
   <h2>** 게시글 작성 **</h2>
   
   <form action="BoardController" method="post">
-  <input type="hidden" name="action" value="write">
+    <input type="hidden" name="action" value="write">
+    
     <%@ include file="bodTop.jspf" %>
 
     <table>
@@ -40,7 +42,7 @@
       </tr>
       <tr>
         <td rowspan="2" class="label image-cell">
-        	<img src="<%= request.getContextPath() %>/memV02DAO/memV02_01_BoardV02/img/side.jpg" alt="Side Image">
+          <img src="${pageContext.request.contextPath}/memV02DAO/memV02_01_BoardV02/img/side.jpg" alt="Side Image">
         </td>
         <td colspan="3">
           <textarea name="bod_content" class="input full" required></textarea>

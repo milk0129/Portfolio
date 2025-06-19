@@ -124,7 +124,14 @@ public class BoardController extends HttpServlet {
         int end = paging.getRecOfEndPage();
 
         List<BoardV02DTO> postList = dao.getPagingList("", begin, end);
-
+        
+        for (BoardV02DTO dto : postList) {
+            String content = dto.getBod_content();
+            if (content != null) {
+                dto.setBod_content(content.replace("\n", "<br>"));
+            }
+        }
+        
         request.setAttribute("postList", postList);
         request.setAttribute("nowPage", paging.getNowPage());
         request.setAttribute("beginPage", paging.getStartPage());
@@ -280,13 +287,13 @@ public class BoardController extends HttpServlet {
             throws ServletException, IOException {
 
         int bod_no = Integer.parseInt(request.getParameter("bod_no"));
-        String bod_pwd = request.getParameter("bod_pwd"); // ← 추가
+        String bod_pwd = request.getParameter("bod_pwd"); 
 
         BoardV02DAO dao = new BoardV02DAO();
         BoardV02DTO dto = dao.selectDetail(bod_no, false); // 조회수 증가 X
 
         request.setAttribute("dto", dto);
-        request.setAttribute("bod_pwd", bod_pwd); // ← 추가
+        request.setAttribute("bod_pwd", bod_pwd); 
 
         RequestDispatcher rd = request.getRequestDispatcher(
             "/memV02DAO/memV02_01_BoardV02/boardFrame/boardUpdFrame.jsp");
