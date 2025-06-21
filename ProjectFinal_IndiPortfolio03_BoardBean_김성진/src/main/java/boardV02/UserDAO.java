@@ -1,170 +1,74 @@
 package boardV02;
 
-import java.sql.*;
+import org.apache.ibatis.session.SqlSession;
 
 public class UserDAO {
 
     // 로그인 유효성 확인
     public boolean loginCheck(String userId, String userPw) {
-        String sql = "SELECT * FROM BOARD_USERS WHERE USER_ID = ? AND USER_PW = ?";
-        try (Connection conn = DbSet.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setString(1, userId);
-            pstmt.setString(2, userPw);
-
-            try (ResultSet rs = pstmt.executeQuery()) {
-                return rs.next();
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        try (SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession()) {
+            UserDTO dto = new UserDTO();
+            dto.setUserId(userId);
+            dto.setUserPw(userPw);
+            int result = session.selectOne("user.UserMapper.loginCheck", dto);
+            return result == 1;
         }
-        return false;
     }
-    // 이름 가져오기
+
+    // 이름 가져오기 (UserDTO로 조회 후 getUserName 사용)
     public String getUserName(String userId) {
-        String sql = "SELECT USER_NAME FROM BOARD_USERS WHERE USER_ID = ?";
-        try (Connection conn = DbSet.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setString(1, userId);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getString("USER_NAME");
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        UserDTO dto = getUser(userId);
+        return dto != null ? dto.getUserName() : null;
     }
+
     // 회원가입
     public int insertUser(UserDTO dto) {
-        String sql = "INSERT INTO BOARD_USERS (USER_ID, USER_PW, USER_NAME, USER_BIRTH, USER_EMAIL) VALUES (?, ?, ?, ?, ?)";
-        try (Connection conn = DbSet.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setString(1, dto.getUserId());
-            pstmt.setString(2, dto.getUserPw());
-            pstmt.setString(3, dto.getUserName());
-            pstmt.setString(4, dto.getUserBirth());
-            pstmt.setString(5, dto.getUserEmail());
-
-            return pstmt.executeUpdate();
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        try (SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession(true)) {
+            return session.insert("user.UserMapper.insertUser", dto);
         }
-        return 0;
     }
+
     // 아이디 찾기
     public String findUserId(String userName, String userEmail) {
-        String sql = "SELECT USER_ID FROM BOARD_USERS WHERE USER_NAME = ? AND USER_EMAIL = ?";
-        try (Connection conn = DbSet.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        UserDTO param = new UserDTO();
+        param.setUserName(userName);
+        param.setUserEmail(userEmail);
 
-            pstmt.setString(1, userName);
-            pstmt.setString(2, userEmail);
-
-            try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) return rs.getString("USER_ID");
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        try (SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession()) {
+            return session.selectOne("user.UserMapper.findUserId", param);
         }
-        return null;
     }
 
-    //유저 중복확인
+    // 아이디 중복 확인
     public boolean isUserIdDuplicate(String userId) {
-        String sql = "SELECT COUNT(*) FROM BOARD_USERS WHERE USER_ID = ?";
-        try (Connection conn = DbSet.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setString(1, userId);
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                return rs.getInt(1) > 0;
-            }
-            rs.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        try (SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession()) {
+            int count = session.selectOne("user.UserMapper.isUserIdDuplicate", userId);
+            return count > 0;
         }
-        return true; // 에러 발생 시 중복된 것으로 간주
     }
-    
+
+    // 유저 정보 조회
     public UserDTO getUser(String userId) {
-        String sql = "SELECT USER_ID, USER_NAME, USER_EMAIL, PROFILE_IMG FROM BOARD_USERS WHERE USER_ID = ?";
-        try (Connection conn = DbSet.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setString(1, userId);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    UserDTO dto = new UserDTO();
-                    dto.setUserId(rs.getString("USER_ID"));
-                    dto.setUserName(rs.getString("USER_NAME"));
-                    dto.setUserEmail(rs.getString("USER_EMAIL"));
-                    dto.setProfileImg(rs.getString("PROFILE_IMG")); 
-                    return dto;
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        try (SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession()) {
+            return session.selectOne("user.UserMapper.getUser", userId);
         }
-        return null;
     }
 
-    // 회원정보 수정: 비밀번호, 이메일, 프로필 이미지
+    // 회원정보 수정
     public int updateUserProfile(UserDTO dto) {
-        int result = 0;
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-
-        try {
-            conn = DbSet.getConnection();
-
+        try (SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession(true)) {
             if (dto.getUserPw() != null && !dto.getUserPw().trim().isEmpty()) {
-                String sql = "UPDATE BOARD_USERS SET USER_PW = ?, USER_EMAIL = ?, PROFILE_IMG = ? WHERE USER_ID = ?";
-                pstmt = conn.prepareStatement(sql);
-                pstmt.setString(1, dto.getUserPw());
-                pstmt.setString(2, dto.getUserEmail());
-                pstmt.setString(3, dto.getProfileImg());
-                pstmt.setString(4, dto.getUserId());
+                return session.update("user.UserMapper.updateUserWithPw", dto);
             } else {
-                String sql = "UPDATE BOARD_USERS SET USER_EMAIL = ?, PROFILE_IMG = ? WHERE USER_ID = ?";
-                pstmt = conn.prepareStatement(sql);
-                pstmt.setString(1, dto.getUserEmail());
-                pstmt.setString(2, dto.getProfileImg());
-                pstmt.setString(3, dto.getUserId());
+                return session.update("user.UserMapper.updateUserNoPw", dto);
             }
-
-            result = pstmt.executeUpdate();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try { if (pstmt != null) pstmt.close(); } catch (Exception e) {}
-            try { if (conn != null) conn.close(); } catch (Exception e) {}
         }
-
-        return result;
     }
-    
+
+    // 회원 탈퇴
     public int deleteUser(String userId) {
-        String sql = "DELETE FROM BOARD_USERS WHERE USER_ID = ?";
-        try (Connection conn = DbSet.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, userId);
-            return pstmt.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
+        try (SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession(true)) {
+            return session.delete("user.UserMapper.deleteUser", userId);
         }
-        return 0;
     }
-
-}//UserDAO
+}

@@ -55,13 +55,22 @@ public class UserController extends HttpServlet {
 
         if (valid) {
             HttpSession session = request.getSession();
-            UserDTO loginUser = dao.getUser(userId); 
-            session.setAttribute("loginUser", loginUser); 
+            System.out.println("로그인 성공 → 사용자 ID: " + userId);
+            UserDTO loginUser = dao.getUser(userId);
+            System.out.println("getUser() 결과: " + (loginUser == null ? "null" : loginUser.toString()));
 
-            session.setAttribute("userId", loginUser.getUserId());
-            session.setAttribute("userName", loginUser.getUserName());
+            if (loginUser != null) {
+                session.setAttribute("loginUser", loginUser);
+                session.setAttribute("userId", loginUser.getUserId());
+                session.setAttribute("userName", loginUser.getUserName());
 
-            response.sendRedirect("BoardController?action=list");
+                response.sendRedirect("BoardController?action=list");
+            } else {
+                request.setAttribute("msg", "로그인에는 성공했지만 사용자 정보를 불러올 수 없습니다.");
+                request.setAttribute("location", request.getContextPath() + "/memV02DAO/memV02_01_BoardV02/boardFrame/login.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("/memV02DAO/memV02_01_BoardV02/boardFrame/msgChk.jsp");
+                rd.forward(request, response);
+            }
         } else {
             request.setAttribute("msg", "아이디 또는 비밀번호가 틀렸습니다.");
             request.setAttribute("location", request.getContextPath() + "/memV02DAO/memV02_01_BoardV02/boardFrame/login.jsp");
